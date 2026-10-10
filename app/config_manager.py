@@ -4,7 +4,7 @@ import threading
 import copy
 from typing import Dict, Any
 
-CONFIG_FILE = "app_config.json"
+CONFIG_FILE = os.environ.get("CORTEXKG_CONFIG_FILE", "app_config.json")
 _lock = threading.Lock()
 
 # Define nested defaults for each provider

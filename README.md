@@ -1,174 +1,56 @@
-<p align="center">
-   <img width="800" height="500" alt="CortexKG" src="https://github.com/user-attachments/assets/2a57efda-9239-4052-8e35-a2cbdff16a5d" />
-</p>
+# CortexKG
 
-<p align="center">
-   <b>CortexKG: Portable AI memory powered by knowledge graphs</b>
-</p>
+CortexKG is a local-first Streamlit application that turns conversations into a persistent, explorable knowledge graph. It extracts entities and relationships from chat, stores the graph as portable JSON, and can inject graph context into later conversations.
 
-<p align="center">
-  <a href="https://github.com/pooyaphoenix/CortexKG/releases">
-    <img src="https://img.shields.io/github/v/release/pooyaphoenix/CortexKG?color=blue&label=version" alt="Release Version"/>
-  </a>
-  <a href="https://github.com/pooyaphoenix/CortexKG/stargazers">
-    <img src="https://img.shields.io/github/stars/pooyaphoenix/CortexKG?style=social" alt="GitHub stars"/>
-  </a>
-  <a href="mailto:pooyachavoshi@gmail.com">
-    <img src="https://img.shields.io/badge/Email-Contact-blue?style=flat&logo=gmail" alt="Email"/>
-  </a>
-</p>
+## Supported providers
 
-# 🧠 CortexKG
-### Build a Living Knowledge Graph for Your AI Conversations
-
-> Transform your conversations into a persistent knowledge graph and give LLMs long-term memory based on **your own knowledge**, relationships, and personal context.
-
----
-
-## Why CortexKG?
-
-Large Language Models are incredibly powerful, but they have one major limitation:
-
-They don't truly **know you**.
-
-Every conversation starts almost from scratch unless you manually provide context or rely on expensive long-context windows.
-
-CortexKG introduces a different approach.
-
-Instead of repeatedly telling the model who you are, what you know, what you've learned, and how everything is connected, CortexKG continuously extracts knowledge from your conversations and stores it as a **graph of entities and relationships**.
-
-Over time, your AI assistant develops something closer to a **digital representation of your mind** rather than simply remembering previous chat history.
-
----
-
-
-# What CortexKG Does
-<img width="800" height="400" alt="Screenshot 2026-08-07 213124" src="https://github.com/user-attachments/assets/5e0f2078-f824-4218-b5a7-7226f0d477b5" />
-
-During every conversation:
-
-1. You chat with your favorite LLM.
-2. CortexKG extracts entities and relationships.
-3. Those relationships are stored inside a knowledge graph.
-4. Future conversations can inject this graph back into the LLM as context.
-5. The graph continuously evolves as you learn and communicate.
-
-Instead of only storing text, CortexKG stores **knowledge**.
-
----
-
-# Supported Providers
-
-Currently CortexKG supports:
-
-- Ollama (Local)
+- Ollama
 - OpenAI
 - Google Gemini
-- Any OpenAI-compatible API
+- OpenAI-compatible endpoints such as OpenRouter, LM Studio, vLLM, and ArvanCloud
 
-Examples include:
+## Quick start
 
-- OpenRouter
-- LM Studio
-- vLLM
-- ArvanCloud
-- Local OpenAI-compatible servers
-
----
-
-# 🚀Installation
-
-## 1. Clone the repository
+A new developer can run the application in under 15 minutes.
 
 ```bash
-git clone https://github.com/pooyaphoenix/CortexKG.git
-
+git clone https://github.com/massoudsh/CortexKG.git
 cd CortexKG
-```
-
----
-
-## 2. Create a virtual environment
-
-### Windows
-
-```bash
-python -m venv .venv
-
-.venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-python3 -m venv .venv
-
-source .venv/bin/activate
-```
-
----
-
-## 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 4. Run the application
-
-```bash
+python3.12 -m venv .venv
+source .venv/bin/activate # Windows: .venv\Scripts\activate
+python -m pip install --requirement requirements.txt
 python main.py
 ```
 
-The application will automatically launch Streamlit.
+Open the address shown by Streamlit. Select a provider in **Settings**, enter its model configuration and API key, then begin chatting. To explore the UI without model credentials, select **Load Sample Knowledge Graph** under **Graph Memory**.
 
----
+Use the pinned Python version in `.python-version`. Runtime configuration is created locally as `app_config.json`; use `.env.example` only as a reference for non-secret deployment paths. Do not commit API keys, generated configuration, or graph exports.
 
+## How it works
 
-# 🤝Contributing
+1. The user sends a chat message to the selected provider.
+2. CortexKG optionally adds the current graph as context.
+3. The response and/or user input are converted into structured entities and relationships.
+4. The graph is saved locally and rendered interactively.
+5. The graph can be exported as JSON and imported later.
 
-Contributions are always welcome.
+See [Architecture](docs/ARCHITECTURE.md) for the data flow and component map.
 
-Whether it's:
+## Testing
 
-- bug fixes
-- UI improvements
-- new providers
-- documentation
-- graph algorithms
-- memory optimization
+```bash
+python -m unittest discover -v
+node --test CortexKG/graph.test.js
+```
 
-Feel free to open an issue or submit a pull request.
+Pull requests and updates to `main` run dependency installation, Python compilation, both test suites, CodeQL analysis, and secret scanning in GitHub Actions. Dependabot checks Python and GitHub Actions dependencies weekly.
 
----
+## Security and AI evaluation
 
-# Philosophy
+Read [Security notes and threat model](docs/SECURITY.md) before using CortexKG with sensitive conversations. Provider keys and graph data are local files; protect the device and storage where they reside.
 
-CortexKG is built around one simple idea:
+Entity and relationship extraction is probabilistic. Review important facts and links before using the graph for operational, legal, security, financial, or personnel decisions.
 
-> Your knowledge should belong to you.
+## License
 
-AI systems should remember what **you choose**, understand how your ideas connect, and allow you to carry that memory between different models and providers.
-
-Your memory shouldn't disappear when you switch from GPT to Gemini, from Claude to Ollama, or from one platform to another.
-
-CortexKG aims to make personal AI memory portable, transparent, and owned by the user.
-
----
-
-# License
-
-This project is licensed under the MIT License.
-
----
-
-# Author
-
-**Pooya Chavoshi**
-
-GitHub:
-https://github.com/pooyachavoshi
-
-If you find this project useful, consider giving it a ⭐ to support future development.
+MIT
