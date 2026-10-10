@@ -4,10 +4,12 @@ import streamlit.components.v1 as components
 import networkx as nx
 import json
 
+from empty_state import render_empty_graph_state
+
 def render_pyvis_graph(nx_graph: nx.DiGraph, height: int = 600):
     """Generates HTML file with Pyvis and renders it into Streamlit with full-screen controls."""
     if len(nx_graph.nodes) == 0:
-        st.info("The Knowledge Graph is empty. Start chatting to build it!")
+        render_empty_graph_state()
         return
 
     net = Network(notebook=True, width="100%", height=f"{height}px", directed=True)
@@ -125,7 +127,7 @@ def render_3d_graph(nx_graph: nx.DiGraph, height: int = 700, show_edge_labels: b
     from time_service import ensure_timestamps, to_epoch_ms, format_timestamp
 
     if len(nx_graph.nodes) == 0:
-        st.info("The Knowledge Graph is empty. Start chatting to build it!")
+        render_empty_graph_state()
         return
 
     ensure_timestamps(nx_graph)
