@@ -1,3 +1,5 @@
+import json
+
 import streamlit as st
 from pyvis.network import Network
 import streamlit.components.v1 as components
@@ -118,6 +120,49 @@ def render_pyvis_graph(nx_graph: nx.DiGraph, height: int = 600):
         html_content += fullscreen_script
 
     components.html(html_content, height=height + 25)
+
+
+def render_copy_graph_statistics(statistics_text: str):
+    """Renders a clipboard control with in-place copy feedback."""
+    statistics_json = json.dumps(statistics_text)
+    components.html(f"""
+    <style>
+      body {{ margin: 0; font-family: sans-serif; }}
+      button {{ background: #2563eb; border: 0; border-radius: 6px; color: white; cursor: pointer; font-weight: 600; padding: 8px 12px; }}
+      #message {{ color: #166534; display: none; font-size: 13px; margin-left: 8px; }}
+      #error {{ color: #b91c1c; display: none; font-size: 13px; margin-left: 8px; }}
+    </style>
+    <button id="copy-statistics" type="button">Copy Graph Statistics</button>
+    <span id="message" role="status">Statistics copied.</span>
+    <span id="error" role="alert">Clipboard access was unavailable.</span>
+    <script>
+      const statistics = {statistics_json};
+      const message = document.getElementById('message');
+      const error = document.getElementById('error');
+
+      document.getElementById('copy-statistics').addEventListener('click', async () => {{
+        message.style.display = 'none';
+        error.style.display = 'none';
+        try {{
+          await navigator.clipboard.writeText(statistics);
+          message.style.display = 'inline';
+        }} catch (_) {{
+          const textarea = document.createElement('textarea');
+          textarea.value = statistics;
+          document.body.appendChild(textarea);
+          textarea.select();
+          const copied = document.execCommand('copy');
+          textarea.remove();
+          if (copied) {{
+            message.style.display = 'inline';
+          }} else {{
+            error.style.display = 'inline';
+          }}
+        }}
+      }});
+    </script>
+    """, height=45)
+
 
 def render_footer(developer_name: str = "Pooya Chavoshi", github_url: str = "https://github.com/pooyachavoshi"):
     """Renders a fixed footer at the bottom of the Streamlit application."""

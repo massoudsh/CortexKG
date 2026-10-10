@@ -6,6 +6,33 @@ def initialize_graph() -> nx.DiGraph:
     return nx.DiGraph()
 
 
+def graph_statistics(graph: nx.DiGraph) -> dict[str, int]:
+    """Returns graph totals grouped by optional review status."""
+    confirmed_memories = sum(
+        1 for _, data in graph.nodes(data=True)
+        if data.get("review_status") == "confirmed"
+    )
+    return {
+        "nodes": graph.number_of_nodes(),
+        "edges": graph.number_of_edges(),
+        "confirmed_memories": confirmed_memories,
+        "unreviewed_memories": graph.number_of_nodes() - confirmed_memories,
+    }
+
+
+def format_graph_statistics(graph: nx.DiGraph) -> str:
+    """Formats graph statistics for sharing or copying."""
+    statistics = graph_statistics(graph)
+    return "\n".join([
+        "CortexKG Statistics",
+        "",
+        f"Nodes: {statistics['nodes']}",
+        f"Edges: {statistics['edges']}",
+        f"Confirmed Memories: {statistics['confirmed_memories']}",
+        f"Unreviewed Memories: {statistics['unreviewed_memories']}",
+    ])
+
+
 def sample_knowledge_graph() -> KnowledgeGraph:
     """Returns a representative, evidence-oriented project graph."""
     return KnowledgeGraph(

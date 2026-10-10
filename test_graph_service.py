@@ -4,7 +4,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "app"))
 
-from graph_service import initialize_graph, sample_knowledge_graph, update_graph
+from graph_service import (
+    format_graph_statistics,
+    graph_statistics,
+    initialize_graph,
+    sample_knowledge_graph,
+    update_graph,
+)
 
 
 class SampleKnowledgeGraphTests(unittest.TestCase):
@@ -26,6 +32,26 @@ class SampleKnowledgeGraphTests(unittest.TestCase):
 
         self.assertEqual(graph.number_of_nodes(), 7)
         self.assertEqual(graph.number_of_edges(), 6)
+
+    def test_graph_statistics_defaults_memories_to_unreviewed(self):
+        graph = initialize_graph()
+        graph.add_node("maya", review_status="confirmed")
+        graph.add_node("omar")
+        graph.add_edge("maya", "omar")
+
+        self.assertEqual(
+            graph_statistics(graph),
+            {
+                "nodes": 2,
+                "edges": 1,
+                "confirmed_memories": 1,
+                "unreviewed_memories": 1,
+            },
+        )
+        self.assertEqual(
+            format_graph_statistics(graph),
+            "CortexKG Statistics\n\nNodes: 2\nEdges: 1\nConfirmed Memories: 1\nUnreviewed Memories: 1",
+        )
 
 
 if __name__ == "__main__":

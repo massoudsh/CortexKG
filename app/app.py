@@ -1,8 +1,13 @@
 import streamlit as st
 from config_manager import load_config, save_config
 from llm_service import generate_chat_stream, extract_knowledge
-from graph_service import initialize_graph, sample_knowledge_graph, update_graph
-from ui_components import render_pyvis_graph, render_footer
+from graph_service import (
+    format_graph_statistics,
+    initialize_graph,
+    sample_knowledge_graph,
+    update_graph,
+)
+from ui_components import render_copy_graph_statistics, render_pyvis_graph, render_footer
 from storage_service import (
     save_graph_to_disk, 
     load_graph_from_disk, 
@@ -256,7 +261,8 @@ with col2:
             save_graph_to_disk(st.session_state.graph) 
             st.session_state.messages = []
             st.rerun()
-            
+
+    render_copy_graph_statistics(format_graph_statistics(st.session_state.graph))
     render_pyvis_graph(st.session_state.graph)
 
     render_footer(
