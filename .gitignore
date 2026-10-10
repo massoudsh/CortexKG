@@ -6,6 +6,7 @@
 node_modules/
 .pnp/
 .pnp.js
+packages/
 
 # Build output
 .next/
@@ -33,6 +34,7 @@ venv/
 # Logs
 *.log
 npm-debug.log*
+logs/*.log
 
 # Cache
 .cache/
@@ -40,5 +42,9 @@ npm-debug.log*
 .turbo/
 tsconfig.tsbuildinfo
 
-# OS
-Thumbs.db
+# Application data
+documents/
+frontend/uploads/
+uploads/
+app_config.json
+graph_memory.json
