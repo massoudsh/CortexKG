@@ -1,7 +1,7 @@
 import streamlit as st
 from config_manager import load_config, save_config
 from llm_service import generate_chat_stream, extract_knowledge
-from graph_service import initialize_graph, update_graph
+from graph_service import initialize_graph, sample_knowledge_graph, update_graph
 from ui_components import render_pyvis_graph, render_footer
 from storage_service import (
     save_graph_to_disk, 
@@ -144,6 +144,13 @@ st.sidebar.divider()
 
 # Graph Memory Controls
 st.sidebar.subheader("💾 Graph Memory")
+st.sidebar.caption("Load a realistic project graph to explore the visualizer before connecting a model.")
+if st.sidebar.button("Load Sample Knowledge Graph", use_container_width=True):
+    st.session_state.graph = update_graph(initialize_graph(), sample_knowledge_graph())
+    save_graph_to_disk(st.session_state.graph)
+    st.sidebar.success("Sample knowledge graph loaded.")
+    st.rerun()
+
 graph_json = get_graph_export_json(st.session_state.graph)
 st.sidebar.download_button(
     label="⬇️ Export Graph as JSON",
