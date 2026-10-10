@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CortexKG · Obsidian integration</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">CortexKG / Obsidian integration</p><h1>Turn your notes into connected context.</h1><p class="lede">Import a vault, preserve every source note, and surface the people, decisions, risks, and dependencies that are otherwise scattered across Markdown.</p></div>
+      <button id="import-button" class="primary">Import mock vault</button>
+    </header>
+    <section class="status"><div><span>Vault</span><strong id="vault-status">Vault not connected</strong></div><div><span>Source notes</span><strong id="notes-count">0</strong></div><div><span>Entities</span><strong id="entities-count">0</strong></div><div><span>Relationships</span><strong id="relations-count">0</strong></div><div><span>Entity types</span><strong id="types-count">0</strong></div></section>
+    <section class="workspace">
+      <aside><div class="section-heading"><h2>Vault notes</h2><span>Mock data</span></div><ul id="note-list" class="list"></ul></aside>
+      <section class="graph"><div class="section-heading"><h2>Knowledge graph</h2><span>Inferred links</span></div><div class="graph-canvas"><div class="node maya">Maya</div><div class="node atlas">Project<br>Atlas</div><div class="node api">API Migration</div><div class="node omar">Omar</div><div class="node risk">Token retention<br>risk</div><div class="node db">PostgreSQL</div><i class="line one"></i><i class="line two"></i><i class="line three"></i><i class="line four"></i><p>Import the vault to activate the graph.</p></div><div id="details" class="details"><p class="eyebrow">Ready to import</p><h3>Your vault stays the source of truth.</h3><p>Use the mock import to test how CortexKG can organize notes without changing them.</p></div></section>
+      <aside><div class="section-heading"><h2>Entities</h2><span>Click to inspect</span></div><ul id="entity-list" class="list"></ul><div class="section-heading relations"><h2>Evidence-backed links</h2></div><ul id="relation-list" class="relations-list"></ul></aside>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

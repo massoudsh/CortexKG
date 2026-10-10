@@ -1,0 +1,1 @@
+{"type":"module","scripts":{"test":"node --test CortexKG/graph.test.js"}}
