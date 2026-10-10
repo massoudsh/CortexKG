@@ -12,7 +12,8 @@ class EmptyGraphStateTests(unittest.TestCase):
         heading, description, chat_anchor = empty_graph_content()
 
         self.assertEqual(heading, "No knowledge graph yet")
-        self.assertIn("Start a conversation", description)
+        self.assertIn("Chat tab", description)
+        self.assertIn("start a conversation", description)
         self.assertEqual(chat_anchor, "#chat-interface")
 
 
