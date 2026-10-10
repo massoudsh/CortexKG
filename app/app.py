@@ -183,6 +183,7 @@ col1, col2 = st.columns([1, 1])
 
 # Left Column: Chat Controller
 with col1:
+    st.markdown('<div id="chat-interface"></div>', unsafe_allow_html=True)
     st.subheader("Chat Interface")
     
     for msg in st.session_state.messages:
