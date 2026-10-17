@@ -292,6 +292,7 @@ tab_chat, tab_graph, tab_memory = st.tabs(
 
 with tab_chat:
 
+    st.markdown('<div id="chat-interface"></div>', unsafe_allow_html=True)
     st.subheader("Chat Interface")
 
     with st.popover("Clear Chat", use_container_width=True):
