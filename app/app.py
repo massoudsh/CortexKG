@@ -10,12 +10,12 @@ from graph_service import (
     update_graph,
 )
 from ui_components import (
-    render_copy_graph_statistics,
     render_timeline_panel,
     render_pyvis_graph,
     render_3d_graph,
     render_footer,
     render_memory_manager,
+    render_copy_graph_statistics,
 )
 from storage_service import (
     save_graph_to_disk, 

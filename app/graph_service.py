@@ -11,11 +11,10 @@ def initialize_graph() -> nx.DiGraph:
 
 
 def graph_statistics(graph: nx.DiGraph) -> dict[str, int]:
-    """Returns graph totals grouped by the memory-review status."""
-    ensure_memory_metadata(graph)
+    """Returns graph totals grouped by optional review status."""
     confirmed_memories = sum(
         1 for _, data in graph.nodes(data=True)
-        if data.get("status") == "confirmed"
+        if data.get("review_status") == "confirmed" or data.get("status") == "confirmed"
     )
     return {
         "nodes": graph.number_of_nodes(),
@@ -39,7 +38,7 @@ def format_graph_statistics(graph: nx.DiGraph) -> str:
 
 
 def sample_knowledge_graph() -> KnowledgeGraph:
-    """Returns a representative, reviewable project graph."""
+    """Returns a representative, evidence-oriented project graph."""
     return KnowledgeGraph(
         nodes=[
             {"id": "maya", "label": "Maya", "entity_type": "Person"},
