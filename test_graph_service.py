@@ -35,7 +35,7 @@ class SampleKnowledgeGraphTests(unittest.TestCase):
 
     def test_graph_statistics_defaults_memories_to_unreviewed(self):
         graph = initialize_graph()
-        graph.add_node("maya", review_status="confirmed")
+        graph.add_node("maya", status="confirmed")
         graph.add_node("omar")
         graph.add_edge("maya", "omar")
 
